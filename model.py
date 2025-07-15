@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import joblib
 import os
+import streamlit as st
 
 # 1. Загрузка данных
 start = datetime(2020, 7, 14)
