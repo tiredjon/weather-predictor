@@ -52,8 +52,28 @@ test_preds = model.predict(X_test)
 mae = mean_absolute_error(y_test, test_preds)
 rmse = np.sqrt(mean_squared_error(y_test, test_preds))
 
-print(f'Test MAE: {mae:.2f}')
-print(f'RMSE: {rmse:.2f}')
+
+st.title("🌤️ Прогноз погоды на завтра (Ташкент)")
+
+st.markdown("Введите текущие погодные параметры:")
+
+# Поля ввода
+tavg = st.number_input("Средняя температура (°C)", value=25.0)
+tmin = st.number_input("Минимальная температура (°C)", value=20.0)
+tmax = st.number_input("Максимальная температура (°C)", value=30.0)
+prcp = st.number_input("Осадки (мм)", value=0.0)
+wspd = st.number_input("Скорость ветра (км/ч)", value=10.0)
+pres = st.number_input("Атм. давление (гПа)", value=1010.0)
+month = st.slider("Месяц", 1, 12, 7)
+dayofweek = st.slider("День недели (0=Пн, 6=Вс)", 0, 6, 2)
+
+# Прогноз
+if st.button("Предсказать"):
+    features = np.array([[tavg, tmin, tmax, prcp, wspd, pres, month, dayofweek]])
+    prediction = model.predict(features)[0]
+    st.success(f"🌡️ Прогноз средней температуры на завтра: **{prediction:.2f}°C**")
+
+
 
 # 8. Сохранение модели
 print("Сохраняем в:", os.getcwd())
